@@ -1,0 +1,62 @@
+[
+    {
+        "id": 7589,
+        "navn": "Olivia B",
+        "ferdigheter": ["c++", "java", "fortran"],
+        "belastning_prosent": 60
+    },
+    {
+        "id": 7352,
+        "navn": "Lucas K",
+        "ferdigheter": ["java"],
+        "belastning_prosent": 30
+    },
+    {
+        "id": 9511,
+        "navn": "Emma P",
+        "ferdigheter": ["fullstack", "fortran"],
+        "belastning_prosent": 90
+    },
+    {
+        "id": 6546,
+        "navn": "Noah Q",
+        "ferdigheter": ["c++", "fortran"],
+        "belastning_prosent": 100
+    },
+    {
+        "id": 2758,
+        "navn": "Nora H",
+        "ferdigheter": ["java", "python"],
+        "belastning_prosent": 90
+    },
+    {
+        "id": 7986,
+        "navn": "Oliver M",
+        "ferdigheter": ["c++", "java"],
+        "belastning_prosent": 60
+    },
+    {
+        "id": 8654,
+        "navn": "Ella F",
+        "ferdigheter": ["fortran"],
+        "belastning_prosent": 90
+    },
+    {
+        "id": 5057,
+        "navn": "Isak K",
+        "ferdigheter": ["python"],
+        "belastning_prosent": 30
+    },
+    {
+        "id": 9350,
+        "navn": "Alma V",
+        "ferdigheter": ["c++", "python"],
+        "belastning_prosent": 50
+    },
+    {
+        "id": 5575,
+        "navn": "Leo Z",
+        "ferdigheter": ["java"],
+        "belastning_prosent": 10
+    }
+]
