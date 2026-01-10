@@ -3,7 +3,7 @@ import requests
 import json
 
 def hent_konsulentregister():
-    response = requests.get("http://localhost:8000/konsulenter")
+    response = requests.get("http://server:8000/konsulenter")
     data = response.json()
     return data
 
@@ -40,7 +40,7 @@ def lag_sammendrag(
     sammendrag = [
         f"Fant {len(tilgjengelige_konsulenter)} konsulenter med minst "
         + f"{min_tilgjengelige_prosent}% tilgjengelighet og ferdigheten "
-        + f"{påkrevd_ferdighet}."
+        + f"'{påkrevd_ferdighet}'."
     ]
     for konsulent in tilgjengelige_konsulenter:
         navn = konsulent["navn"]
@@ -74,7 +74,6 @@ def sammendrag_egnede_konsulenter(
         min_tilgjengelige_prosent = min_tilgjengelighet_prosent,
         påkrevd_ferdighet = påkrevd_ferdighet
     )
-    respons = json.dumps(respons)
     return respons
 
 
