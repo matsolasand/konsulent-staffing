@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 
 k = "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"
 OPENROUTER_API_KEY = k
@@ -22,10 +23,16 @@ tools = [
                         "maximum": 100
                     },
                     "pakrevd_ferdighet": {
-                        "type": "string",
-                        "description": "Required skill",
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "List of required skills",
                         "enum": ["python", "c++", "java", "fortran", "fullstack"]
                     }
+                    # "pakrevd_ferdighet": {
+                    #     "type": "string",
+                    #     "description": "Required skill",
+                    #     "enum": ["python", "c++", "java", "fortran", "fullstack"]
+                    # }
                 },
                 "required": ["min_tilgjengelige_prosent", "pakrevd_ferdighet"]
             }
@@ -67,7 +74,7 @@ def call_your_api(min_tilgjengelighet_prosent, pakrev_ferdighet):
 def main():
     def bad_models(num):
         if num == 0:
-            model = ""
+            model = "mistralai/mistral-7b-instruct"
         elif num == 1:
             model = ""
         elif num == 2:
@@ -85,6 +92,7 @@ def main():
         elif num == 2:
             model = "openai/gpt-3.5-turbo"
         if num == 3:
+            # works, despite failed type correctness
             model = "meta-llama/llama-3.1-8b-instruct"
         return model
     
@@ -92,24 +100,28 @@ def main():
     messages = [
         {
             "role": "user",
-            "content": "Find me Python developers with at least 50% availability"
+            "content": "Find me developers with both Python and c++ and at least 50% availability"
+            # "content": "Find me Python developers with at least 50% availability"
         }
     ]
     ############
     # parameters
     ############
-    good_model = boolf
+    good_model = boolt
     if good_model:
-        model = good_models(2)
+        model = good_models(3)
     else:
         model = bad_models(0)
-    testing_output = boolf
+    testing_output = boolt
     ############
+    start = time.time()
     result = call_openrouter(
         model = model,
         messages = messages,
         tools = tools
     )
+    elapsed = time.time() - start
+    print(f"Response time: {elapsed:.2f}s")
     if testing_output:
         print(result)
         return
