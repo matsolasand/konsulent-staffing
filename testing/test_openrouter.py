@@ -22,19 +22,14 @@ tools = [
                         "minimum": 1,
                         "maximum": 100
                     },
-                    "pakrevd_ferdighet": {
+                    "pakrevde_ferdigheter": {
                         "type": "array",
                         "items": {"type": "string"},
                         "description": "List of required skills",
                         "enum": ["python", "c++", "java", "fortran", "fullstack"]
                     }
-                    # "pakrevd_ferdighet": {
-                    #     "type": "string",
-                    #     "description": "Required skill",
-                    #     "enum": ["python", "c++", "java", "fortran", "fullstack"]
-                    # }
                 },
-                "required": ["min_tilgjengelige_prosent", "pakrevd_ferdighet"]
+                "required": ["min_tilgjengelige_prosent", "pakrevde_ferdigheter"]
             }
         }
     }
@@ -60,9 +55,9 @@ def call_openrouter(model, messages, tools=None):
     return response.json()
 
 def call_your_api(min_tilgjengelighet_prosent, pakrev_ferdighet):
-    url = "http://localhost:8001/tilgjengelige-konsulenter/sammendrag?"\
-        + "min_tilgjengelighet_prosent=50&pakrevde_ferdigheter=python&"\
-        + "pakrevde_ferdigheter=c%2B%2B"
+    url = "http://localhost:8001/tilgjengelige-konsulenter/sammendrag"\
+        + "?min_tilgjengelighet_prosent=50&pakrevde_ferdigheter=pytho"\
+        + "n&pakrevde_ferdigheter=c%2B%2B"
     params = {
         "min_tilgjengelighet_prosent": min_tilgjengelighet_prosent,
         "pakrevd_ferdighet": pakrev_ferdighet
@@ -94,7 +89,6 @@ def main():
         {
             "role": "user",
             "content": "Find me developers with both Python and c++ and at least 50% availability"
-            # "content": "Find me Python developers with at least 50% availability"
         }
     ]
     ############
@@ -111,7 +105,6 @@ def main():
         messages = messages,
         tools = tools
     )
-    print(type(result))
     elapsed = time.time() - start
     print(f"Response time: {elapsed:.2f}s")
     if testing_output:
@@ -122,7 +115,7 @@ def main():
 
     api_result = call_your_api(
         args['min_tilgjengelige_prosent'],
-        args['pakrevd_ferdighet']
+        args['pakrevde_ferdigheter']
     )
     print(api_result)
 
