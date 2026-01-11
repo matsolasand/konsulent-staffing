@@ -60,7 +60,9 @@ def call_openrouter(model, messages, tools=None):
     return response.json()
 
 def call_your_api(min_tilgjengelighet_prosent, pakrev_ferdighet):
-    url = "http://localhost:8001/tilgjengelige-konsulenter/sammendrag"
+    url = "http://localhost:8001/tilgjengelige-konsulenter/sammendrag?"\
+        + "min_tilgjengelighet_prosent=50&pakrevde_ferdigheter=python&"\
+        + "pakrevde_ferdigheter=c%2B%2B"
     params = {
         "min_tilgjengelighet_prosent": min_tilgjengelighet_prosent,
         "pakrevd_ferdighet": pakrev_ferdighet
@@ -72,16 +74,7 @@ def call_your_api(min_tilgjengelighet_prosent, pakrev_ferdighet):
 
 
 def main():
-    def bad_models(num):
-        if num == 0:
-            model = "mistralai/mistral-7b-instruct"
-        elif num == 1:
-            model = ""
-        elif num == 2:
-            model = ""
-        return model
-    
-    def good_models(num):
+    def models(num):
         """
         Fast, cheap, and excellent at structured outputs.
         """
@@ -107,12 +100,10 @@ def main():
     ############
     # parameters
     ############
-    good_model = boolt
-    if good_model:
-        model = good_models(3)
-    else:
-        model = bad_models(0)
-    testing_output = boolt
+    # choose one out of four models (kwarg in [0, 1, 2, 3])
+    model = models(0)
+    # prints result from call_openrouter() if True
+    testing_output = boolf
     ############
     start = time.time()
     result = call_openrouter(
@@ -120,6 +111,7 @@ def main():
         messages = messages,
         tools = tools
     )
+    print(type(result))
     elapsed = time.time() - start
     print(f"Response time: {elapsed:.2f}s")
     if testing_output:
@@ -128,7 +120,10 @@ def main():
     tool_call = result['choices'][0]['message']['tool_calls'][0]
     args = json.loads(tool_call['function']['arguments'])
 
-    api_result = call_your_api(args['min_tilgjengelige_prosent'], args['pakrevd_ferdighet'])
+    api_result = call_your_api(
+        args['min_tilgjengelige_prosent'],
+        args['pakrevd_ferdighet']
+    )
     print(api_result)
 
 if __name__ == "__main__":
@@ -139,7 +134,7 @@ if __name__ == "__main__":
 Example call for call_openrouter():
 
 result = call_openrouter(
-    model="anthropic/claude-3.5-haiku",  # or "openai/gpt-4o-mini"
+    model=model,
     messages=messages,
     tools=tools
 )
@@ -161,29 +156,4 @@ Response structure:
     }]
 }
 
-"""
-"""
-Needs more testing:
-
-GPT-3.5 Turbo: Perfect execution
-    Correct function call
-    Correct parameter types (integer for min_tilgjengelige_prosent)
-    Cost: $0.000111 (~5x cheaper than Claude Haiku)
-    Fast
-
-Tested models:
-
-Llama 3.2 1B - Provider doesn't support function calling at all. Dead end.
-Gemma 2B - Model doesn't exist on OpenRouter (wrong ID or not available).
-Mistral 7B - Interesting failure:
-    finish_reason: 'stop' - Finished normally (didn't use tool)
-    content: '' - Returned empty string
-    It ignored the function completely - Just gave up instead of calling
-    the tool or responding with text
-Llama 3.1 8B: Failed - Type error
-    Called the function correctly BUT:
-    "min_tilgjengelige_prosent": "50" - String instead of integer
-    Your API expects an integer, this will likely cause an error
-    Slower (627 prompt tokens vs 120 - inefficient prompt processing)
-    Cheapest: $0.000067
 """

@@ -29,10 +29,10 @@ Verktøy 1 (rangering):
 Verktøy 2 (rangering):
     1. Llama 3.1 8B
     Bruker riktig "type", altså ["python", "c++"]. Overlegent billig i denne
-    oppgaven
+    oppgaven. Bruker mellom 3.98 og 6.34 sekunder på oppgaven.
     2. Claude 3.5 Haiku
-    Bruker også riktig "type". 76 ganger dyrere enn Llama. Begge modeller
-    bruker rett over 3 sekunder.
+    Bruker også riktig "type". 76 ganger dyrere enn Llama. Bruker mellom 2.92
+    og 3.5 sekunder på oppgaven.
     3. GPT-40-mini
     Klarte ikke å bruke funksjonskall riktig; kjørte flere funksjonskall.
     Smart, men feil. Viser at den ikke støtter listeargumenter som funksjons-
@@ -43,8 +43,10 @@ Verktøy 2 (rangering):
 Konklusjon:
 Llama 3.1 8B er desidert billigst og får til oppgavene, selv om den gir feil
 type i den første oppgaven. Anbefales dersom penger er en faktor.
+
 Claude 3.5 Haiku scorer best på utførelse, men er mye dyrere enn Llama 3.1 8B.
-Anbefales dersom penger ikke er en faktor.
+Er også raskere enn Llama. Anbefales dersom penger ikke er en faktor.
+
 GPT-modellene scorer dårlig på verktøyet som sjekker for mer enn én ferdighet.
 Kunne allikevel anbefales dersom ferdighet gis som et funksjonsargument som
 ikke er en liste, men en streng.
