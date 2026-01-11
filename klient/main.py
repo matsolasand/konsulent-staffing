@@ -12,14 +12,14 @@ def hent_konsulentregister():
 def filtrer_konsulenter(
     konsulenter : list[dict],
     min_tilgjengelighet_prosent : int,
-    påkrevd_ferdighet : str
+    pakrevd_ferdighet : str
 ) -> list[dict]:
     tilgjengelige_konsulenter = []
     for konsulent in konsulenter:
         ferdigheter = konsulent["ferdigheter"]
         tilgjengelighet = 100 - konsulent["belastning_prosent"]
         if (
-            påkrevd_ferdighet in ferdigheter
+            pakrevd_ferdighet in ferdigheter
         ) and (
             tilgjengelighet >= min_tilgjengelighet_prosent
         ):
@@ -35,12 +35,12 @@ def filtrer_konsulenter(
 def lag_sammendrag(
     tilgjengelige_konsulenter : list[dict],
     min_tilgjengelige_prosent : int,
-    påkrevd_ferdighet : str
+    pakrevd_ferdighet : str
 ) -> list[dict]:
     sammendrag = [
         f"Fant {len(tilgjengelige_konsulenter)} konsulenter med minst "
         + f"{min_tilgjengelige_prosent}% tilgjengelighet og ferdigheten "
-        + f"'{påkrevd_ferdighet}'."
+        + f"'{pakrevd_ferdighet}'."
     ]
     for konsulent in tilgjengelige_konsulenter:
         navn = konsulent["navn"]
@@ -61,25 +61,25 @@ app = FastAPI()
 @app.get("/tilgjengelige-konsulenter/sammendrag")
 def sammendrag_egnede_konsulenter(
     min_tilgjengelighet_prosent : int = Query(..., ge=50, le=100),
-    påkrevd_ferdighet : str = Query(...)
+    pakrevd_ferdighet : str = Query(...)
 ):
     konsulentregister = hent_konsulentregister()
     tilgjengelige_konsulenter = filtrer_konsulenter(
         konsulenter = konsulentregister,
         min_tilgjengelighet_prosent = min_tilgjengelighet_prosent,
-        påkrevd_ferdighet = påkrevd_ferdighet
+        pakrevd_ferdighet = pakrevd_ferdighet
     )
     respons = lag_sammendrag(
         tilgjengelige_konsulenter = tilgjengelige_konsulenter,
         min_tilgjengelige_prosent = min_tilgjengelighet_prosent,
-        påkrevd_ferdighet = påkrevd_ferdighet
+        pakrevd_ferdighet = pakrevd_ferdighet
     )
     return respons
 
 
 def main():
     respons = sammendrag_egnede_konsulenter(
-        min_tilgjengelighet_prosent = 50, påkrevd_ferdighet = "python"
+        min_tilgjengelighet_prosent = 50, pakrevd_ferdighet = "python"
     )
     print(respons)
 
