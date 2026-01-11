@@ -1,0 +1,32 @@
+Bygg en MCP-løsning for konsulent-staffing
+
+Din oppgave er å bygge en løsning basert på MCP (Model Context Protocol) for en
+intern AI-assistent. Løsningen skal bestå av to mikrotjenester, en server og en
+klient, som kjører i separate Docker-containere. Serveren, konsulent-api, skal
+ha ett endepunkt,
+    GET /konsulenter,
+som returnerer en hardkodet JSON-liste med
+konsulent-objekter. Hvert objekt må inneholde
+    id
+    navn
+    ferdigheter
+    belastning_prosent.
+
+Hoveddelen av oppgaven er å bygge klienten, llm-verktøy-api. Dette er tjenesten
+som AI-assistenten til slutt vil kalle på. Den skal ha ett endepunkt,
+    GET /tilgjengelige-konsulenter/sammendrag,
+som aksepterer query-parametrene
+    min_tilgjengelighet_prosent
+    påkrevd_ferdighet.
+Klientens logikk er å kalle konsulent-api-serveren for å hente data, filtrere
+denne dataen, og deretter returnere et JSON-objekt med et menneskeleselig
+sammendrag. Et eksempel på respons kan være
+{"sammendrag": "Fant 2 konsulenter med minst 50% tilgjengelighet og ferdigheten
+'python'. Anna K. har 60% tilgjengelighet. Leo T. har 80% tilgjengelighet."}.
+
+Hele løsningen må kunne kjøres med docker compose up og skal bygges med
+Python/FastAPI. Leveransen er en link til et Git-repository som inneholder all
+kildekode og eventuelt hvordan man kjører prosjektet.
+
+Det er forventet at modellvalg skal presenteres og begrunnes under intervjuet.
+Alle hjelpemidler er selvfølgelig lov.
