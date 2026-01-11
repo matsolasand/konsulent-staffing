@@ -77,24 +77,3 @@ Parametrene som kan endres på ligger under kommentaren "parameters" i funksjone
 1. Sett OPENROUTER_API_KEY i test_openrouter.py (øverst i scriptet)
 2. Kjør: python testing/test_openrouter.py
 3. Se modelltesting.txt for analyse
-
-## Prosjektstruktur
-project-root/
-│
-├── server/
-│   ├── main.py
-|   ├── konsulenter.json
-│   └── Dockerfile
-│
-├── klient/
-│   ├── main.py
-│   └── Dockerfile
-│
-├── testing/
-│   ├── test_openrouter.py
-│   └── modelltesting.txt
-│
-├── README.md
-├── .gitignore
-├── compose.yaml
-└── the_case.txt
