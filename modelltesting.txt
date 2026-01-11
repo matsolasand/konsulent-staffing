@@ -1,0 +1,50 @@
+Jeg gjorde tester av to forskjellige verktøy. Det ene verktøyet, Verktøy 1, tok
+inn ferdighet som en streng, og sjekket for denne ene ferdigheten. Det andre
+verktøyet, Verktøy 2, tok inn ferdigheter som en liste av strenger, og sjekket
+for alle ferdighetene samtidig. Begge verktøyene sjekket også for minimum
+tilgjengelighet i prosent.
+
+De fire modellene som ble testet er
+    - Claude 3.5 Haiku
+    - GPT-40-mini
+    - GPT-3.4-turbo
+    - Llama 3.1 8B
+
+Verktøy 1 (rangering):
+    1. GPT-40-mini
+    Billigst, raskest, riktige argumenter i funksjonskall
+
+    2. GPT-3.5-turbo
+    Tre ganger dyrere, samme resultat
+
+    3. Llama 3.1 8B
+    1.8 ganger billigere enn GPT-40-mini, men upålitelig bruk av "type" for
+    argument i funksjonskall: Brukte string istedenfor int for
+    min_tilgjengelighet_prosent.
+    Får ut riktig resultat allikevel siden FastAPI klarte å håndtere feilen.
+
+    4. Claude 3.5 Haiku
+    Gjør alt riktig; 22 ganger dyrere; forklarer hva den gjør (unødvendig)
+
+Verktøy 2 (rangering):
+    1. Llama 3.1 8B
+    Bruker riktig "type", altså ["python", "c++"]. Overlegent billig i denne
+    oppgaven
+    2. Claude 3.5 Haiku
+    Bruker også riktig "type". 76 ganger dyrere enn Llama. Begge modeller
+    bruker rett over 3 sekunder.
+    3. GPT-40-mini
+    Klarte ikke å bruke funksjonskall riktig; kjørte flere funksjonskall.
+    Smart, men feil. Viser at den ikke støtter listeargumenter som funksjons-
+    argumenter.
+    4. GPT-3.5-turbo
+    Feilet fullstendig. Brukte bare den første ferdigheten; ignorerte resten.
+
+Konklusjon:
+Llama 3.1 8B er desidert billigst og får til oppgavene, selv om den gir feil
+type i den første oppgaven. Anbefales dersom penger er en faktor.
+Claude 3.5 Haiku scorer best på utførelse, men er mye dyrere enn Llama 3.1 8B.
+Anbefales dersom penger ikke er en faktor.
+GPT-modellene scorer dårlig på verktøyet som sjekker for mer enn én ferdighet.
+Kunne allikevel anbefales dersom ferdighet gis som et funksjonsargument som
+ikke er en liste, men en streng.
