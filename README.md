@@ -22,7 +22,8 @@ samt filene
 * the_case.txt
 
 ### server
-* JSON-fil med tilgjengelige konsulenter og deres ferdigheter samt tilgjengelighet i prosent. * main.py som henter og returnerer JSON-fila med alle konsulentene.
+* JSON-fil med tilgjengelige konsulenter og deres ferdigheter samt tilgjengelighet i prosent.
+* main.py som henter og returnerer JSON-fila med alle konsulentene.
 * Dockerfile
 
 ### klient
